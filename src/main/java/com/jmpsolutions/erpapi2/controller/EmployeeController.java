@@ -62,6 +62,6 @@ public class EmployeeController {
 	
 	@GetMapping("/younger/than/{age}")
 	List<Employee> getYoungerThanAge(@PathVariable int age) {
-		return repository.findAll().stream().filter(item -> (age > Integer.parseInt(item.getAge()))).collect(Collectors.toList());
+		return repository.findAll().stream().filter(item -> (age > item.getAge())).collect(Collectors.toList());
 	}
 }

@@ -3,6 +3,7 @@ package com.jmpsolutions.erpapi2;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -32,6 +33,8 @@ class LoadDatabase {
 		Resource resData = new ClassPathResource("static/employee.json");
 		String strJson = getFileContents(resData);
 		ObjectMapper objectMapper = new ObjectMapper();
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		objectMapper.setDateFormat(sdf);
 		try {
 			List<Employee> lstEmployee = objectMapper.readValue(strJson, new TypeReference<List<Employee>>() {});
 			log.info("Size of list: " + lstEmployee.size());

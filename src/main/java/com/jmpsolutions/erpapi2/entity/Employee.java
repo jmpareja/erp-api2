@@ -1,5 +1,7 @@
 package com.jmpsolutions.erpapi2.entity;
 
+import java.sql.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,20 +15,20 @@ public class Employee {
 	@JsonIgnore
 	private @Id @GeneratedValue Long id;
 	private String name;
-	private String joindate;
-	private String age;
+	private java.sql.Date joindate;
+	private Integer age;
 	private String company;
 	private String email;
 	private String phone;
-	private String salary;
+	private Integer salary;
 	
 	@OneToOne(optional = true)
 	private Address address;
 	
 	public Employee() {}
 	
-	public Employee(String name, String joindate, String age, String company, String email, String phone,
-			String salary, Address address) {
+	public Employee(String name, Date joindate, Integer age, String company, String email, String phone,
+			Integer salary, Address address) {
 		super();
 		this.name = name;
 		this.joindate = joindate;
@@ -50,16 +52,16 @@ public class Employee {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getJoindate() {
+	public Date getJoindate() {
 		return joindate;
 	}
-	public void setJoindate(String joindate) {
+	public void setJoindate(Date joindate) {
 		this.joindate = joindate;
 	}
-	public String getAge() {
+	public Integer getAge() {
 		return age;
 	}
-	public void setAge(String age) {
+	public void setAge(Integer age) {
 		this.age = age;
 	}
 	public String getCompany() {
@@ -80,10 +82,10 @@ public class Employee {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getSalary() {
+	public Integer getSalary() {
 		return salary;
 	}
-	public void setSalary(String salary) {
+	public void setSalary(Integer salary) {
 		this.salary = salary;
 	}
 	public Address getAddress() {
