@@ -9,9 +9,16 @@ import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * Entity class for Employee information.
+ * 
+ * @author jmpareja
+ * @since 2021/02/27
+ */
 @Entity
 public class Employee {
 	
+	// Mark the field 'id' as ignored for JSON
 	@JsonIgnore
 	private @Id @GeneratedValue Long id;
 	private String name;
@@ -25,8 +32,22 @@ public class Employee {
 	@OneToOne(optional = true)
 	private Address address;
 	
+	/**
+	 * Default constructor.
+	 */
 	public Employee() {}
 	
+	/**
+	 * Constructor with argument values.
+	 * @param name String value
+	 * @param joindate Date value
+	 * @param age Integer value
+	 * @param company String value
+	 * @param email String value
+	 * @param phone String value
+	 * @param salary Integer value
+	 * @param address Address object
+	 */
 	public Employee(String name, Date joindate, Integer age, String company, String email, String phone,
 			Integer salary, Address address) {
 		super();

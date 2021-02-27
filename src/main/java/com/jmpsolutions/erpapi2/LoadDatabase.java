@@ -23,11 +23,25 @@ import com.jmpsolutions.erpapi2.entity.Employee;
 import com.jmpsolutions.erpapi2.repository.AddressRepository;
 import com.jmpsolutions.erpapi2.repository.EmployeeRepository;
 
+/**
+ * Spring configuration that loads json file to H2 database.
+ * 
+ * @author jmpareja
+ * @since 2021/02/27
+ */
 @Configuration
 class LoadDatabase {
 
 	private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
+	/**
+	 * Loads JSON file to H2 database.
+	 * This is executed by spring framework after application is loaded.
+	 * 
+	 * @param empRepository Employee repository injected by spring framework
+	 * @param addrRepository Address repository injected by spring framework
+	 * @return the command line arguments
+	 */
 	@Bean
 	CommandLineRunner loadDbFromFile(EmployeeRepository empRepository, AddressRepository addrRepository) {
 		Resource resData = new ClassPathResource("static/employee.json");
@@ -54,6 +68,11 @@ class LoadDatabase {
 		
 	}
 	
+	/**
+	 * Helper method that loads resource file into a String object.
+	 * @param res Resource file object
+	 * @return String object from file
+	 */
 	private String getFileContents(Resource res) {
 		String resData = StringUtils.EMPTY;
         try {

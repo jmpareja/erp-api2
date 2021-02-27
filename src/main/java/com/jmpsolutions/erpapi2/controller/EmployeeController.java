@@ -13,6 +13,12 @@ import com.jmpsolutions.erpapi2.entity.Employee;
 import com.jmpsolutions.erpapi2.repository.EmployeeRepository;
 import com.jmpsolutions.erpapi2.util.FieldNotFoundException;
 
+/**
+ * Controller class for employee-related API mapping to methods.
+ * 
+ * @author jmpareja
+ * @since 2021/02/27
+ */
 @RestController
 @RequestMapping(value="/api")
 public class EmployeeController {
@@ -23,11 +29,22 @@ public class EmployeeController {
 		this.repository = repository;
 	}
 	
+	/**
+	 * Fetches all employee entries.
+	 * 
+	 * @return List of Employee objects
+	 */
 	@GetMapping("/employees")
 	List<Employee> all() {
 		return repository.findAll();
 	}
 	
+	/**
+	 * Fetches all employee entries sorted by specified field.
+	 * 
+	 * @param field Employee field for sorting
+	 * @return List of sorted Employee objects
+	 */
 	@GetMapping("/sorted/{field}")
 	List<Employee> getSorted(@PathVariable String field) {
 		Comparator<Employee> myComparator = null;
@@ -60,6 +77,12 @@ public class EmployeeController {
 				.sorted(myComparator).collect(Collectors.toList());
 	}
 	
+	/**
+	 * Fetches Employee objects with age value lesser than specified parameter.
+	 * 
+	 * @param age integer value of age
+	 * @return List of Employee objects satisfying criteria
+	 */
 	@GetMapping("/younger/than/{age}")
 	List<Employee> getYoungerThanAge(@PathVariable int age) {
 		return repository.findAll().stream().filter(item -> (age > item.getAge())).collect(Collectors.toList());
