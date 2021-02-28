@@ -1,6 +1,13 @@
 package com.jmpsolutions.erpapi2.util;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Comparator;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.core.io.Resource;
+import org.springframework.util.FileCopyUtils;
 
 import com.jmpsolutions.erpapi2.entity.Employee;
 
@@ -39,5 +46,23 @@ public final class ErpApiUtil {
 		}
 		
 		return myComparator;
+	}
+	
+	/**
+	 * Helper method that loads resource file into a String object.
+	 * @param res Resource file object
+	 * @return String object from file
+	 */
+	public static String getFileContents(Resource res) throws IOException {
+		String resData = StringUtils.EMPTY;
+        try {
+        	InputStream inputStream = res.getInputStream();
+            byte[] bdata = FileCopyUtils.copyToByteArray(inputStream);
+            resData = new String(bdata, StandardCharsets.UTF_8);
+        } catch (IOException exception) {
+            throw exception;
+        }
+        
+        return resData;
 	}
 }
