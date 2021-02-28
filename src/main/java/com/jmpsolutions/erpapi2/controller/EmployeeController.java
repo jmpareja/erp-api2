@@ -1,6 +1,5 @@
 package com.jmpsolutions.erpapi2.controller;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jmpsolutions.erpapi2.entity.Employee;
 import com.jmpsolutions.erpapi2.repository.EmployeeRepository;
-import com.jmpsolutions.erpapi2.util.FieldNotFoundException;
+import com.jmpsolutions.erpapi2.util.ErpApiUtil;
 
 /**
  * Controller class for employee-related API mapping to methods.
@@ -46,35 +45,9 @@ public class EmployeeController {
 	 * @return List of sorted Employee objects
 	 */
 	@GetMapping("/sorted/{field}")
-	List<Employee> getSorted(@PathVariable String field) {
-		Comparator<Employee> myComparator = null;
-		switch(field) {
-			case "name":
-				myComparator = Comparator.comparing(Employee::getName);
-				break;
-			case "joindate":
-				myComparator = Comparator.comparing(Employee::getJoindate);
-				break;
-			case "age":
-				myComparator = Comparator.comparing(Employee::getAge);
-				break;
-			case "company":
-				myComparator = Comparator.comparing(Employee::getCompany);
-				break;
-			case "email":
-				myComparator = Comparator.comparing(Employee::getEmail);
-				break;
-			case "phone":
-				myComparator = Comparator.comparing(Employee::getPhone);
-				break;
-			case "salary":
-				myComparator = Comparator.comparing(Employee::getSalary);
-				break;
-			default:
-				throw new FieldNotFoundException(field);
-		}
+	List<Employee> getSorted(@PathVariable String field) {	
 		return repository.findAll().stream()
-				.sorted(myComparator).collect(Collectors.toList());
+				.sorted(ErpApiUtil.getComparatorBasedOnField(field)).collect(Collectors.toList());
 	}
 	
 	/**
